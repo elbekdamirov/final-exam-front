@@ -2,7 +2,6 @@ import { memo, useState, type ChangeEvent, type FormEvent } from "react";
 import Title from "../ui/Title";
 import { REGIONS } from "@/static/index";
 import { useStudent } from "@/api/hooks/useStudent";
-import { useNavigate } from "react-router-dom";
 
 export interface IFormData {
   f_name: string;
@@ -20,8 +19,6 @@ export const initialState: IFormData = {
 
 const CreateStudentForm = () => {
   const [formData, setFormData] = useState<IFormData>(initialState);
-  const [editingItem, setEditingItem] = useState<IFormData | null>(null);
-  const navigate = useNavigate();
 
   const { createStudent } = useStudent();
 
@@ -42,11 +39,6 @@ const CreateStudentForm = () => {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleEdit = (item: IFormData) => {
-    setEditingItem(item);
-    navigate("/create-student", { state: item });
   };
 
   return (
